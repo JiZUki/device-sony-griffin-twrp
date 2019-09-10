@@ -132,6 +132,16 @@ on boot
     setprop sys.usb.config adb
     write /proc/touchpanel/gesture_enable 1
     write /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-02/c440000.qcom,spmi:qcom,pmi8998@2:qcom,qpnp-smb2/power_supply/usb/otg_switch 1
+    insmod /sbin/sec_touchscreen.ko
+    write /sys/devices/virtual/sec/tsp/after_work 1
+
+    chown system system /sys/devices/virtual/sec/tsp/module_id
+    chmod 0600 /sys/devices/virtual/sec/tsp/module_id
+    restorecon /sys/devices/virtual/sec/tsp/module_id
+    chown system system /sys/devices/virtual/sec/tsp/cmd
+    chmod 0600 /sys/devices/virtual/sec/tsp/cmd
+    restorecon /sys/devices/virtual/sec/tsp/cmd
+    
 
 on init
     start logd
